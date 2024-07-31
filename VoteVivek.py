@@ -1,11 +1,16 @@
 import streamlit as st
 
-# Set the title of the webpage
-st.title("Here's why you should vote for Vivek")
+# Define the main page function
+def main_page():
+    st.title("Here's why you should vote for Vivek")
 
-# Create a button
-if st.button("Find out why Vivek's the best option"):
-    # Display candidate information when button is clicked
+    # Create a button that leads to the second page
+    if st.button("Find out why Vivek's the best option"):
+        # Change the state to reflect the second page
+        st.session_state.page = "second"
+
+# Define the second page function
+def second_page():
     st.subheader("Reasons to vote for Vivek:")
     reasons = [
         "Passionate about service and giving back to the community",
@@ -15,5 +20,13 @@ if st.button("Find out why Vivek's the best option"):
     ]
     for reason in reasons:
         st.write("- ", reason)
-    # Add call to action
     st.markdown("### SO WHAT ARE YOU WAITING FOR? VOTE VIVEK AS YOUR INTERACT CLUB PRESIDENT NOW!!", unsafe_allow_html=True)
+
+# Application Logic
+if 'page' not in st.session_state:
+    st.session_state.page = "main"
+
+if st.session_state.page == "main":
+    main_page()
+else:
+    second_page()
